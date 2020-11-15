@@ -8,8 +8,13 @@ export const register = (password, email) => fetch(`${BASE_URL}/signup`, {
   },
   body: JSON.stringify({ password, email }),
 })
-  .then((response) => {return response.json()})
-  .then((res) => {return res});
+  .then((response) => {
+    if(response.ok){
+      return response.json()
+    } return Promise.reject(`Error!` + response.status + response.statusText)
+  })
+  .then((res) => {
+    return res});
 
 export const authorize = (password, email) => fetch(`${BASE_URL}/login`, {
   method: 'POST',
@@ -20,7 +25,10 @@ export const authorize = (password, email) => fetch(`${BASE_URL}/login`, {
   body: JSON.stringify({ password, email }),
 })
   .then((response) => {
-     return response.json()})
+    if(response.ok){
+      return response.json()
+    } return Promise.reject(`Error!` + response.status + response.statusText)
+  })
   .then((data) => {
     if (data.token) {
       localStorage.setItem('jwt', data.token);

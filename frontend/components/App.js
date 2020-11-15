@@ -146,7 +146,9 @@ function App() {
   function handleSignup(password, email) {
     auth.register(password, email)
       .then((res) => {
-        if (res.error) {
+        console.log(res)
+        console.log(!res)
+        if (res.error || !res) {
           setIsSuccessful(false);
           setIsInfoTooltipOpen(true);
         } else {
@@ -155,13 +157,17 @@ function App() {
           history.push('/signin');
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsSuccessful(false);
+        setIsInfoTooltipOpen(true)
+      });
   };
   function handleTokenCheck() {
     const jwt = localStorage.getItem('jwt')
     auth.checkToken(jwt)
       .then((res) => {
-        if(res.error){
+        if (res.error) {
           console.log('error')
         }
         setCurrentUser(res)
@@ -173,7 +179,7 @@ function App() {
       .then(() => {
         api.getCardList()
           .then((res) => {
-            if(res.error){
+            if (res.error) {
               console.log('error')
             }
             setCards(res.data)
@@ -191,10 +197,13 @@ function App() {
   function handleLogin(password, email) {
     auth.authorize(password, email)
       .then((res) => {
-        if(res.error){
+        if(!res){
+          setIsSuccessful(false);
+          setIsInfoTooltipOpen(true);
+        }if (res.error) {
           console.log(res.error);
           setIsSuccessful(false);
-        setIsInfoTooltipOpen(true);
+          setIsInfoTooltipOpen(true);
         }
         handleTokenCheck()
       })
