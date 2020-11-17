@@ -80,7 +80,9 @@ module.exports.updateUserAvatar = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const { email, password, name, about, avatar } = req.body;
-  isEmail(email);
+  if(!isEmail(email)){
+    throw new ValidationError('invalid data passed to the methods for creating a user')
+  };
 
   bcrypt.hash(password, 10)
     .then((hash) => {
@@ -93,7 +95,6 @@ module.exports.createUser = (req, res, next) => {
             email: user.email
           })
         })
-        .catch(next)
     })
     .catch(next)
 }
