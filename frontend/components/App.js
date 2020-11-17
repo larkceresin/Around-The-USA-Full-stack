@@ -146,8 +146,6 @@ function App() {
   function handleSignup(password, email) {
     auth.register(password, email)
       .then((res) => {
-        console.log(res)
-        console.log(!res)
         if (res.error || !res) {
           setIsSuccessful(false);
           setIsInfoTooltipOpen(true);
@@ -197,10 +195,10 @@ function App() {
   function handleLogin(password, email) {
     auth.authorize(password, email)
       .then((res) => {
-        if(!res){
+        if (!res) {
           setIsSuccessful(false);
           setIsInfoTooltipOpen(true);
-        }if (res.error) {
+        } if (res.error) {
           console.log(res.error);
           setIsSuccessful(false);
           setIsInfoTooltipOpen(true);

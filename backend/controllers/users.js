@@ -81,9 +81,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
 module.exports.createUser = (req, res, next) => {
   const { email, password, name, about, avatar } = req.body;
   isEmail(email);
-  if (user.findOne({ email }) !== null) {
-    throw new ValidationError('there is already a user with this email')
-  }
+
   bcrypt.hash(password, 10)
     .then((hash) => {
       User.create({ email, password: hash, name, about, avatar })
