@@ -95,6 +95,7 @@ module.exports.createUser = (req, res, next) => {
             email: user.email
           })
         })
+        .catch(next)
     })
     .catch(next)
 }

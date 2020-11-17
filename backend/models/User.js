@@ -34,7 +34,10 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     default: 'https://pictures.s3.yandex.net/resources/avatar_1604080799.jpg',
-    validate: /http(s?):\/\/[\w\-\/\.]{1,}\.(jpg|gif|png)/gi
+    validate: {
+      validator: (v) => validator.isURL(v, [{ allow_underscores: true }]),
+      message: 'Wrong image format'
+    }
   }
 });
 userSchema.statics.findUserByCredentials = function (email, password) {
