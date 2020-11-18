@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
-const isEmail = require('validator/lib/isEmail');
+const validator = require('validator');
 const ValidationError = require('../middleware/errors/ValidationError')
 
 const userSchema = new mongoose.Schema({
@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: {
-      validator: (v) => isEmail(v),
+      validator: (v) => validator.isEmail(v),
       message: 'Wrong email format'
     }
   },
@@ -40,6 +40,7 @@ const userSchema = new mongoose.Schema({
     }
   }
 });
+
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {

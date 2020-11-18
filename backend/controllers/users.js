@@ -51,19 +51,27 @@ module.exports.login = (req, res, next) => {
     })
     .catch(next);
 };
-module.exports.updateUser = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { "name": name }, { new: true, runValidators: true })
-    .then((user) => {
-      User.findByIdAndUpdate(user._id, { "about": about }, { new: true, runValidators: true })
-        .then(user => {
-          if (!user) {
-            throw new NotFoundError('user not found')
-          }
-          res.send({ data: user })
-        })
-    })
 
+module.exports.updateUserName = (req, res, next) => {
+  const { name } = req.body;
+  User.findByIdAndUpdate(req.user._id, { "name": name }, { new: true, runValidators: true })
+    .then(user => {
+      if (!user) {
+        throw new NotFoundError('user not found')
+      }
+      res.send({ data: user })
+    })
+    .catch(next)
+}
+module.exports.updateUserAbout = (req, res, next) => {
+  const { about } = req.body;
+  User.findByIdAndUpdate(user._id, { "about": about }, { new: true, runValidators: true })
+    .then(user => {
+      if (!user) {
+        throw new NotFoundError('user not found')
+      }
+      res.send({ data: user })
+    })
     .catch(next)
 }
 module.exports.updateUserAvatar = (req, res, next) => {
@@ -80,7 +88,7 @@ module.exports.updateUserAvatar = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const { email, password, name, about, avatar } = req.body;
-  if(!isEmail(email)){
+  if (!isEmail(email)) {
     throw new ValidationError('invalid data passed to the methods for creating a user')
   };
 
