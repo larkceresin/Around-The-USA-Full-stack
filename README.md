@@ -20,5 +20,4 @@ Other methods require authorization to access (with Bearer token authorization)
 
 ## related links
 * a link to repository with the complete React application which uses this API: https://github.com/larkceresin/react-around-auth
-* a link to the website that hosts your API: http://api.jennatoff.students.nomoreparties.site/
-* Currently running on jennatoff.students.nomoreparties.site/
+*This API and website are not currently being hosted*
