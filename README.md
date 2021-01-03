@@ -1,5 +1,5 @@
 # react-around-api-full
-The API of "Around the U.S." with authorization and registration handled by the back-end server. (backend folder) and a front end able to handle it and show it in use. Currently this can be downloaded and used locally, it is not hosted on a server at this time.
+The API of "Around the U.S." with authorization and registration handled by the back-end server. (backend folder) and a front end created in react that uses the API. Currently this can be downloaded and used locally, it is not hosted on a server at this time.
 post requests to /signup to register & /login to sign-in a user.
 Other methods require authorization to access (with Bearer token authorization)
 /users methods
